@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <title>Simple Music Player</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            text-decoration: none;
+        }
+
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            width: 100%;
+            background-color: #2A363B;
+        }
+
+        .musicapp {
+            height: max-content;
+            width: 50vmin;
+            padding: 20px;
+            border-radius: 20px;
+            background-color: #566573;
+            text-align: center;
+        }
+
+        .info {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .change,
+        .menu {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 15px;
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            background-color: #2A363B;
+        }
+
+        .image img {
+            border-radius: 50%;
+            height: 200px;
+            margin: 30px;
+        }
+
+        .image h2 {
+            font-size: 25px;
+        }
+
+        .image p {
+            font-size: 15px;
+        }
+
+        input[type=range] {
+            width: 75%;
+            height: 5px;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            height: 20;
+            width: 20px;
+            border-radius: 50%;
+            z-index: 10;
+            background: #eeee00;
+
+        }
+
+        .option {
+            padding: 10px 2px;
+            display: flex;
+            align-items: center;
+            justify-content: space-evenly;
+            font-size: 15px;
+            border-radius: 50%;
+        }
+
+        .option div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            background-color: #2A363B;
+            height: 40px;
+            width: 40px;
+        }
+
+        .option div:hover {
+            background-color: #F16821;
+            box-shadow: 0px 0px 10px #f166218b;
+        }
+
+        #play {
+            font-size: 30px;
+            height: 60px;
+            width: 60px;
+            background-color: #F16821;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="musicapp">
+            <div class="info">
+                <div class="change">
+                    <i class="fa-solid fa-angle-right" style="color: #566573;"></i>
+                </div>
+                <div class="menu">
+                    <i class="fa-solid fa-bars" style="color: #566573;"></i>
+                </div>
+            </div>
+            <div class="image">
+                <img src="https://3.bp.blogspot.com/-IJBjxv-sZsA/Ulwh1bTkwFI/AAAAAAAASYQ/c44HMxQ7xR0/s1600/Official+Google+Music+App+For+iOS.png"
+                    alt="Image" class="img">
+                <h2>Song title</h2>
+                <p>artist name</p>
+            </div>
+            <div class="action">
+                <audio id="audio" controls>
+                    <source src="C:\Users\nks85\Downloads\Krishna-Flute-Music_192(PaglaSongs).mp3" type="audio/mp3">
+                </audio>
+                <br>
+                <input type="range" value="0" id="ShowSong">
+            </div>
+            <div class="option">
+                <div id="backward">
+                    <i class="fa-solid fa-backward-fast" style="color: #566573;"></i>
+                </div>
+                <div id="play">
+                    <i class="fa-solid fa-circle-play" style="color: #566573"></i>
+                </div>
+                <div id="forward">
+                    <i class="fa-solid fa-forward-fast" style="color: #566573;"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- 
+    <script>
+      
+        audio.onloadedmetadata = function () {
+            ShowSong.max = audio.duration;
+        }
+    
+        function playSong() {
+            audio.play();
+        }
+    
+        function pauseSong() {
+            audio.pause();
+        }
+    
+        play.addEventListener('click', () => {
+            if (play.innerHTML === playIcon) {
+                play.innerHTML = pauseIcon;
+                playSong();
+            }
+            else {
+                play.innerHTML = playIcon;
+                pauseSong();
+            }
+        });
+    
+        audio.addEventListener('timeupdate', () => {
+            ShowSong.value = audio.currentTime;
+        });
+    
+        pause.addEventListener('click', () => {
+            play.innerHTML = playIcon;
+            pauseSong();
+        });
+    
+    </script> -->
+
+    <script>
+        let audio = document.querySelector("#audio");
+        let ShowSong = document.getElementById("ShowSong");
+        let play = document.getElementById("play");
+        let backward = document.getElementById("backward");
+        let forward = document.getElementById("forward");
+        let pauseIcon = '<i class="fa-solid fa-circle-play" style="color: #566573"></i>';
+        let playIcon = '<i class="fa-solid fa-pause" style="color: #566573;"></i>';
+
+        audio.onloadedmetadata = function () {
+            ShowSong.max = audio.duration
+        }
+
+        if (audio.play()) {
+            setInterval(() => {
+                ShowSong.value = audio.currentTime;
+            }, 500);
+        }
+
+        function playSong() {
+            audio.play();
+        }
+
+        function pauseSong() {
+            audio.pause();
+        }
+
+        function increaseVolume() {
+            if (audio .volume < 1) {
+                audioPlayer.volume += 0.1;
+            }
+        }
+
+        play.addEventListener('click', () => {
+            if (play.innerHTML === pauseIcon) {
+                play.innerHTML = playIcon;
+                playSong();
+            }
+            else {
+                play.innerHTML = pauseIcon;
+                pauseSong();
+            }
+        })
+
+
+        // setInterval(()=>{
+        //     ShowSong.value= songCurrentTime;
+        // },500)
+
+
+    </script>
+
+    <!-- <script>
+
+const audio = document.getElementById("audioPlayer");
+function togglePlay() {
+    if (audioPlayer.paused) {
+        audioPlayer.play();
+    } else {
+        audioPlayer.pause();
+    }
+}
+
+function stopAudio() {
+    audioPlayer.pause();
+    audioPlayer.currentTime = 0;
+}
+
+function increaseVolume() {
+    if (audioPlayer.volume < 1) {
+        audioPlayer.volume += 0.1;
+    }
+}
+
+function decreaseVolume() {
+    if (audioPlayer.volume > 0) {
+        audioPlayer.volume -= 0.1;
+    }
+}
+
+document.getElementById("playPauseButton").addEventListener("click", togglePlay);
+document.getElementById("stopButton").addEventListener("click", stopAudio);
+document.getElementById("volumeUpButton").addEventListener("click", increaseVolume);
+document.getElementById("volumeDownButton").addEventListener("click", decreaseVolume);
+
+
+    </script> -->
+</body>
+
+</html>
